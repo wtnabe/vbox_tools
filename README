@@ -1,0 +1,29 @@
+
+= vbox_config_admin
+
+
+== Description
+
+
+== Installation
+
+=== Archive Installation
+
+	rake install
+
+=== Gem Installation
+
+	gem install vbox_config_admin
+
+
+== Features/Problems
+
+
+== Synopsis
+
+
+== Copyright
+
+Author::    wtnabe <wtnabe@gmail.com>
+Copyright:: Copyright (c) 2009 watanabe
+License::   Two-clause BSD
