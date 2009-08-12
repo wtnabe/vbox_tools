@@ -2,13 +2,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{vbox_config_admin}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["wtnabe"]
   s.date = %q{2009-08-12}
   s.default_executable = %q{vbox_config_admin}
-  s.description = %q{}
+  s.description = %q{Create and delete backups for VirtualBox configuration, and open config & backups}
   s.email = %q{wtnabe@gmail.com}
   s.executables = ["vbox_config_admin"]
   s.extra_rdoc_files = ["README", "ChangeLog"]
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.requirements = ["rake"]
   s.rubyforge_project = %q{}
   s.rubygems_version = %q{1.3.4}
-  s.summary = %q{}
+  s.summary = %q{Create and delete backups for VirtualBox configuration, and open config & backups}
   s.test_files = ["test/vbox_config_admin_test.rb"]
 
   if s.respond_to? :specification_version then
