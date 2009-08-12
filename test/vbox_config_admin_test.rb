@@ -37,12 +37,13 @@ class Test_VboxConfigAdmin < Test::Unit::TestCase
   end
 
   def test_create_backup
-=begin
-
-create_backup して backup_files があったら ok ?
-
-=end
-    assert( nil )
+    @obj.machines.each { |m|
+      assert( @obj.backup_files( m ) == [] )
+      @obj.create_backup( m )
+      assert( @obj.backup_files( m ).size > 0 )
+      @obj.clear_backups( m )
+      assert( @obj.backup_files( m ) == [] )
+    }
   end
 
   def test_backup_file
@@ -53,23 +54,23 @@ create_backup して backup_files があったら ok ?
   end
 
   def test_backup_files
-    assert( nil )
+    # already tested in test_create_backup
   end
 
   def test_clear_backups
-    assert( nil )
+    # already tested in test_clear_backups
   end
 
   def test_open
-    assert( nil )
+    # don't know how to test
   end
 
   def test_open_config
-    assert( nil )
+    # don't know how to test
   end
 
   def test_open_latest_backup
-    assert( nil )
+    # don't know how to test
   end
 
   def 

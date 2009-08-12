@@ -1,29 +1,60 @@
 
 = vbox_config_admin
 
+  http://github.com/wtnabe/vbox_config_admin/tree/master
 
 == Description
 
+ VirtualBox config xml file manager written in Ruby and Rake
+
+== Requirements
+
+ * Ruby ( 1.8 or later )
+ * Rake
 
 == Installation
-
-=== Archive Installation
-
-	rake install
 
 === Gem Installation
 
 	gem install vbox_config_admin
 
+ If you use windows, type like below:
+
+ C:\Ruby\bin> copy ..\lib\ruby\gems\1.8\gems\vbox_config_admin-X.X.X\bin\vbox_config_admin.bat .
+
+ Remember the last period(.) !
+
+ Note: I've tested it on MacOSX and Windows host. But Linux host hasn't been tried yet.
+
+=== Clone
+
+	git clone git://github.com/wtnabe/vbox_config_admin.git 
 
 == Features/Problems
 
+ * create backup for both whole and each machines' config xml
+ * check and delete backup files
+ * open real config and backup file
+
+ Problem: On Windows host, you will not open XXXX.xml config file. But you can open backup files. I don't know why.
 
 == Synopsis
 
+ Just type as:
+
+ vbox_config_admin 
+
+ You can see available tasks, if you've already installed VirtualBox.
 
 == Copyright
 
 Author::    wtnabe <wtnabe@gmail.com>
-Copyright:: Copyright (c) 2009 watanabe
+Copyright:: Copyright (c) 2009 wtnabe
 License::   Two-clause BSD
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE FREEBSD PROJECT ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE FREEBSD PROJECT OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

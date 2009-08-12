@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'ftools'
+require 'fileutils'
 
 #
 # require VBoxManage executable binary
@@ -86,7 +86,7 @@ class VboxConfigAdmin
   def clear_backups( machine = nil )
     if ( machine )
       backup_files( machine ).map { |e|
-        FileUtils.rm( File.join( machine_base, machine, e ) )
+        FileUtils.rm( e )
       }
     else
       backup_files.map { |e|
@@ -106,7 +106,7 @@ class VboxConfigAdmin
   end
 
   def open_config( machine )
-    open( config_file( machine ) )\
+    open( config_file( machine ) )
   end
 
   def open_latest_backup( machine )

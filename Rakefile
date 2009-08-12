@@ -15,7 +15,7 @@ include FileUtils
 NAME              = "vbox_config_admin"
 AUTHOR            = "wtnabe"
 EMAIL             = "wtnabe@gmail.com"
-DESCRIPTION       = ""
+DESCRIPTION       = "Create and delete backups for VirtualBox configuration, and open config & backups"
 RUBYFORGE_PROJECT = ""
 HOMEPATH          = ""
 BIN_FILES         = %w( vbox_config_admin )
@@ -60,7 +60,8 @@ spec = Gem::Specification.new do |s|
 	#s.autorequire       = ""
 	s.test_files        = Dir["test/*_test.rb"]
 
-	#s.add_dependency('activesupport', '>=1.3.1')
+	s.add_dependency('rake', '>= 0')
+        s.requirements << 'rake'
 	#s.required_ruby_version = '>= 1.8.2'
 
 	s.files = %w(README ChangeLog Rakefile) +
