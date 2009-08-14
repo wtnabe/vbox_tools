@@ -25,6 +25,14 @@ class Test_VboxConfigAdmin < Test::Unit::TestCase
     assert( @obj.machines.class == Array )
   end
 
+  def test_machines_running
+    assert( @obj.machines_running.class == Array )
+  end
+
+  def test_machines_paused
+    assert( @obj.machines_paused.class == Array )
+  end
+
   def test_manager
     assert( @obj.manager.size > 0 )
   end
@@ -72,8 +80,6 @@ class Test_VboxConfigAdmin < Test::Unit::TestCase
   def test_open_latest_backup
     # don't know how to test
   end
-
-  def 
 
   def test_getextradata
     @obj.machines.each { |m|

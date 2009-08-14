@@ -29,11 +29,31 @@ class VboxConfigAdmin
   end
 
   def machines
-    cmdline = "#{manager} list vms"
-    `#{cmdline}`.split( /(\r\n|[\r\n])/ ).map { |e|
-      e.strip.match( /\A"(.+)" \{[0-9a-z-]+\}\z/ )
-      $1
-    }.compact.sort
+    if ( !@machines )
+      @machines = vm_list( 'vms' ) 
+    end
+
+    return @machines
+  end
+
+  def machines_running
+    vm_list( 'runningvms' )
+  end
+
+  def machines_paused
+    cmdline = "#{manager} list -l vms"
+    machine = nil
+    `#{cmdline}`.split( /(\r\n|[\r\n])/ ).map { |line|
+      if ( line.match( /\AName: (.*)\z/ ) )
+        machine = $1.strip 
+      end
+      if ( line.match( /\AState: (.*)\(since/ ) and
+           $1.strip == 'saved' )
+        machine
+      else
+        nil
+      end
+    }.compact
   end
 
   #
@@ -90,7 +110,7 @@ class VboxConfigAdmin
       }
     else
       backup_files.map { |e|
-        FileUtils.rm( File.join( vm_root, e ) )
+        FileUtils.rm( e )
       }
     end
   end
@@ -144,6 +164,14 @@ class VboxConfigAdmin
     end
 
     return cmd
+  end
+
+  def vm_list( cmd )
+    cmdline = "#{manager} list #{cmd}"
+    `#{cmdline}`.split( /(\r\n|[\r\n])/ ).map { |e|
+      e.strip.match( /\A"(.+)" \{[0-9a-z-]+\}\z/ )
+      $1
+    }.compact.sort
   end
 end
 
