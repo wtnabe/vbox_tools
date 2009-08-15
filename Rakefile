@@ -15,7 +15,7 @@ include FileUtils
 NAME              = "vbox_tools"
 AUTHOR            = "wtnabe"
 EMAIL             = "wtnabe@gmail.com"
-DESCRIPTION       = "VirtualBox configuration file management, and force shutdown virtual machines"
+DESCRIPTION       = "create VirtualBox configuration file, and force shutdown virtual machines"
 RUBYFORGE_PROJECT = ""
 HOMEPATH          = ""
 BIN_FILES         = %w( vbox_tools )
