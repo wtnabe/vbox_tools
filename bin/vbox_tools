@@ -4,7 +4,7 @@
 unless ( ENV['PATH'].split( File::PATH_SEPARATOR ).include?( File.dirname( __FILE__ ) ) )
   $LOAD_PATH << File.expand_path("../lib", File.dirname(__FILE__))
 end
-require 'vbox_config_admin'
+require 'vbox_tools'
 
 #
 # global tasks
@@ -12,12 +12,12 @@ require 'vbox_config_admin'
 namespace :vbox do
   desc "show VirtualBox version number"
   task :version do
-    puts VboxConfigAdmin.new.version
+    puts VboxTools.new.version
   end
 
   desc "backup all config files"
   task :backup_configs do
-    v = VboxConfigAdmin.new
+    v = VboxTools.new
     v.machines.each { |m|
       v.create_backup( m )
       puts "Backup completed #{m}"
@@ -28,7 +28,7 @@ namespace :vbox do
 
   desc "clear all backup files"
   task :clear_backups do
-    v = VboxConfigAdmin.new
+    v = VboxTools.new
     v.machines.each { |m|
       v.clear_backups( m )
       puts "Backup files for #{m} are deleted."
@@ -39,7 +39,7 @@ namespace :vbox do
 
   desc "shutdown all running & saved vms"
   task :shutdown_all do
-    v = VboxConfigAdmin.new
+    v = VboxTools.new
     v.machines.each { |m|
       v.poweroff( m )
     }
@@ -49,38 +49,38 @@ end
 #
 # tasks for each machines
 #
-VboxConfigAdmin.new.machines.each { |m|
+VboxTools.new.machines.each { |m|
   namespace m do
     desc "getextradata from #{m}"
     task :getextradata do
-      VboxConfigAdmin.new.getextradata( m )
+      VboxTools.new.getextradata( m )
     end
 
     desc "backup files of #{m}"
     task :backup_files do
-      puts VboxConfigAdmin.new.backup_files( m )
+      puts VboxTools.new.backup_files( m )
     end
 
     desc "create backup for #{m}"
     task :create_backup do
-      VboxConfigAdmin.new.create_backup( m )
+      VboxTools.new.create_backup( m )
       puts "backup created."
     end
 
     desc "clear backup files for #{m}"
     task :clear_backups do
-      VboxConfigAdmin.new.clear_backups( m )
+      VboxTools.new.clear_backups( m )
       puts "Backup files are deleted."
     end
 
     desc "open config file for #{m}"
     task :open_config do
-      VboxConfigAdmin.new.open_config( m )
+      VboxTools.new.open_config( m )
     end
 
     desc "open latest backup for #{m}"
     task :open_latest_backup do
-      VboxConfigAdmin.new.open_latest_backup( m )
+      VboxTools.new.open_latest_backup( m )
     end
   end
 }

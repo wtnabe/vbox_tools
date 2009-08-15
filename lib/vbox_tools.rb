@@ -6,8 +6,8 @@ require 'fileutils'
 # require VBoxManage executable binary
 #
 
-class VboxConfigAdmin
-  VERSION = '0.0.2'
+class VboxTools
+  VERSION = '0.1.0'
 
   def version
     cmdline = "#{manager} --version"

@@ -9,18 +9,18 @@ require 'rake/rdoctask'
 require 'rake/contrib/rubyforgepublisher'
 require 'rake/contrib/sshpublisher'
 require 'fileutils'
-require 'lib/vbox_config_admin'
+require 'lib/vbox_tools'
 include FileUtils
 
-NAME              = "vbox_config_admin"
+NAME              = "vbox_tools"
 AUTHOR            = "wtnabe"
 EMAIL             = "wtnabe@gmail.com"
-DESCRIPTION       = "Create and delete backups for VirtualBox configuration, and open config & backups"
+DESCRIPTION       = "VirtualBox configuration file management, and force shutdown virtual machines"
 RUBYFORGE_PROJECT = ""
 HOMEPATH          = ""
-BIN_FILES         = %w( vbox_config_admin )
+BIN_FILES         = %w( vbox_tools )
 
-VERS              = VboxConfigAdmin::VERSION
+VERS              = VboxTools::VERSION
 REV = File.read(".svn/entries")[/committed-rev="(d+)"/, 1] rescue nil
 CLEAN.include ['**/.*.sw?', '*.gem', '.config']
 RDOC_OPTS = [

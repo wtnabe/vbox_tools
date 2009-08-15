@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 require 'test/unit'
-require File.dirname( __FILE__ ) + '/../lib/vbox_config_admin'
+require File.dirname( __FILE__ ) + '/../lib/vbox_tools'
 
-class Test_VboxConfigAdmin < Test::Unit::TestCase
+class Test_VboxTools < Test::Unit::TestCase
   def setup
-    @obj = VboxConfigAdmin.new
+    @obj = VboxTools.new
   end
 
   def test_version
@@ -83,7 +83,7 @@ class Test_VboxConfigAdmin < Test::Unit::TestCase
 
   def test_getextradata
     @obj.machines.each { |m|
-      assert( @obj.getextradata( m ).size > 0 )
+      assert( @obj.getextradata( m ) == true )
     }
   end
 end
