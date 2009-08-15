@@ -1,11 +1,11 @@
 
-= vbox_config_admin
+= vbox_tools
 
-  http://github.com/wtnabe/vbox_config_admin/tree/master
+  http://github.com/wtnabe/vbox_tools/tree/master
 
 == Description
 
- VirtualBox config xml file manager written in Ruby and Rake
+ create VirtualBox config xml file backup, and force shutdown virtual machines, written in Ruby and Rake
 
 == Requirements
 
@@ -16,11 +16,11 @@
 
 === Gem Installation
 
-	gem install vbox_config_admin
+   gem install vbox_tools
 
  If you use windows, type like below:
 
- C:\Ruby\bin> copy ..\lib\ruby\gems\1.8\gems\vbox_config_admin-X.X.X\bin\vbox_config_admin.bat .
+ C:\Ruby\bin> copy ..\lib\ruby\gems\1.8\gems\vbox_tools-X.X.X\bin\vbox_tools.bat .
 
  Remember the last period(.) !
 
@@ -28,13 +28,14 @@
 
 === Clone
 
-	git clone git://github.com/wtnabe/vbox_config_admin.git 
+   git clone git://github.com/wtnabe/vbox_tools.git 
 
 == Features/Problems
 
  * create backup for both whole and each machines' config xml
  * check and delete backup files
  * open real config and backup file
+ * shutdown running and saved virtual machines
 
  Problem: On Windows host, you will not open XXXX.xml config file. But you can open backup files. I don't know why.
 
@@ -42,7 +43,7 @@
 
  Just type as:
 
- vbox_config_admin 
+ vbox_tools
 
  You can see available tasks, if you've already installed VirtualBox.
 
