@@ -36,6 +36,14 @@ namespace :vbox do
     v.clear_backups
     puts "Backup files for #{File.basename( v.config_file )}"
   end
+
+  desc "shutdown all running & saved vms"
+  task :shutdown_all do
+    v = VboxConfigAdmin.new
+    v.machines.each { |m|
+      v.poweroff( m )
+    }
+  end
 end
 
 #
@@ -45,7 +53,7 @@ VboxConfigAdmin.new.machines.each { |m|
   namespace m do
     desc "getextradata from #{m}"
     task :getextradata do
-      puts VboxConfigAdmin.new.getextradata( m )
+      VboxConfigAdmin.new.getextradata( m )
     end
 
     desc "backup files of #{m}"

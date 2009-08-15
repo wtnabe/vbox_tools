@@ -37,23 +37,31 @@ class VboxConfigAdmin
   end
 
   def machines_running
-    vm_list( 'runningvms' )
+    if ( !@runnings )
+      @runnings = vm_list( 'runningvms' )
+    end
+
+    return @runnings
   end
 
-  def machines_paused
-    cmdline = "#{manager} list -l vms"
-    machine = nil
-    `#{cmdline}`.split( /(\r\n|[\r\n])/ ).map { |line|
-      if ( line.match( /\AName: (.*)\z/ ) )
-        machine = $1.strip 
-      end
-      if ( line.match( /\AState: (.*)\(since/ ) and
-           $1.strip == 'saved' )
-        machine
-      else
-        nil
-      end
-    }.compact
+  def machines_saved
+    if ( !@saved )
+      @saved = vm_list( 'saved' ) { |line|
+        ( line.match( /\AState: (.*)\(since/ ) and $1.strip == 'saved' )
+      }
+    end
+
+    return @saved
+  end
+
+  def machines_need_shutdown_before_verup
+    machines_running + machines_saved
+  end
+
+  def machines_acpi_enabled
+    vm_list( 'acpi' ) { |line|
+      ( line.match( /\AACPI: (.*)/ ) and $1.strip == 'on' )
+    }
   end
 
   #
@@ -138,17 +146,42 @@ class VboxConfigAdmin
     end
   end
 
+  def poweroff( machine )
+    if ( machines_running.include?( machine ) )
+      poweroff_cmd( machine )
+    elsif ( machines_saved.include?( machine ) )
+      call4vm( machine, 'startvm' )
+      timeout = 20
+      while ( timeout > 0 )
+        if ( poweroff_cmd( machine ) )
+          return true
+        else
+          sleep 1
+          timeout -= 1
+        end
+      end
+    end
+  end
+
   def getextradata( machine )
     call4vm( machine, 'getextradata', 'enumerate' )
   end
 
   private
+  def poweroff_cmd( machine )
+    if ( machines_acpi_enabled.include?( machine ) )
+      call4vm( machine, 'controlvm', 'acpipowerbutton' )
+    else
+      call4vm( machine, 'controlvm', 'poweroff' )
+    end
+  end
+
   def call4vm( machine, subcommand, *params )
     if ( machines.include?( machine ) )
       machine = '"' + machine + '"' if ( machine.include?(' ') )
       cmdline = "#{manager} #{subcommand} #{machine} #{params.join(' ')}"
       puts cmdline
-      `#{cmdline}`
+      system( cmdline )
     end
   end
 
@@ -166,12 +199,31 @@ class VboxConfigAdmin
     return cmd
   end
 
-  def vm_list( cmd )
-    cmdline = "#{manager} list #{cmd}"
-    `#{cmdline}`.split( /(\r\n|[\r\n])/ ).map { |e|
-      e.strip.match( /\A"(.+)" \{[0-9a-z-]+\}\z/ )
-      $1
-    }.compact.sort
+  def vm_list( name, &cmd )
+    case name
+    when 'vms', 'runningvms'
+      cmdline = "#{manager} list #{name}"
+      `#{cmdline}`.split( /(?:\r\n|[\r\n])/ ).map { |e|
+        e.strip.match( /\A"(.+)" \{[0-9a-z-]+\}\z/ )
+        $1
+      }.compact.sort
+    else
+      if ( block_given? )
+        cmdline = "#{manager} list -l vms"
+        machine = nil
+        `#{cmdline}`.split( /(?:\r\n|[\r\n])/ ).map { |line|
+          if ( line.match( /\AName: (.*)\z/ ) )
+            machine = $1.strip
+            next
+          end
+          if ( machine )
+            cmd.call( line ) ? machine : nil
+          end
+        }.compact
+      else
+        []
+      end
+    end
   end
 end
 

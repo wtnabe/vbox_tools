@@ -25,12 +25,12 @@ class Test_VboxConfigAdmin < Test::Unit::TestCase
     assert( @obj.machines.class == Array )
   end
 
-  def test_machines_running
-    assert( @obj.machines_running.class == Array )
+  def test_machines_need_shutdown_before_verup
+    assert( @obj.machines_need_shutdown_before_verup.class == Array )
   end
 
-  def test_machines_paused
-    assert( @obj.machines_paused.class == Array )
+  def test_machines_acpi_enabled
+    assert( @obj.machines_acpi_enabled.class == Array )
   end
 
   def test_manager
